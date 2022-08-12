@@ -1,15 +1,15 @@
-function slider(){
+function slider({container, slide, wrapper, field, prevArrow, nextArrow, total, current}) {
     let slideIndex = 1,
         offset = 0;
 
-    const slider = document.querySelector('.offer__slider'),
-        sliderWrapper = document.querySelector('.offer__slider-wrapper'),
-        sliderInner = document.querySelector('.offer__slider-inner'),
-        sliderItems = document.querySelectorAll('.offer__slide'),
-        prevSlide = document.querySelector('.offer__slider-prev'),
-        nextSlide = document.querySelector('.offer__slider-next'),
-        totalSlides = document.querySelector('#total'),
-        currentSlide = document.querySelector('#current'),
+    const slider = document.querySelector(container),
+        sliderWrapper = document.querySelector(wrapper),
+        sliderInner = document.querySelector(field),
+        sliderItems = document.querySelectorAll(slide),
+        prevSlide = document.querySelector(prevArrow),
+        nextSlide = document.querySelector(nextArrow),
+        totalSlides = document.querySelector(total),
+        currentSlide = document.querySelector(current),
         width = window.getComputedStyle(sliderWrapper).width;
 
 
@@ -115,6 +115,7 @@ function slider(){
         dots.forEach(dot => dot.style.opacity = '.5')
         dots[slideIndex - 1].style.opacity = 1
     })
+
     function deleteNoDigits(str) {
         return +str.replace(/\D/g, "")
     }
@@ -144,4 +145,4 @@ function slider(){
         })
     })
 };
-module.exports = slider;
+export default slider;

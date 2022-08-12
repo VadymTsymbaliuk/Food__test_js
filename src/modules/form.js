@@ -1,6 +1,9 @@
-function form(){
+import {openModal, closeModal} from "./modal";
+import {postData} from "../services/services";
 
-    const forms = document.querySelectorAll("form"),
+function form(formSelector, modalTimerId) {
+
+    const forms = document.querySelectorAll(formSelector),
         message = {
             loading: "img/spinner/spinner.svg",
             success: "Дякую, скоро з вами звʼяжемось",
@@ -10,17 +13,6 @@ function form(){
     forms.forEach(item => {
         bindPostData(item);
     });
-
-    const postData = async (url, data) => {
-        let res = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            body: data
-        })
-        return await res.json()
-    };
 
 
     function bindPostData(form) {
@@ -58,12 +50,12 @@ function form(){
     function showThanksModal(message) {
         const prevModalDialog = document.querySelector('.modal__dialog')
         prevModalDialog.classList.add("hide");
-        openModal()
+        openModal('.modal', modalTimerId)
         const thanksModal = document.createElement("div");
         thanksModal.classList.add("modal__dialog");
         thanksModal.innerHTML = `
                         <div class="modal__content">
-                        <div class="modal__close">&times;</div>
+                        <div class="modal__close" data-close>&times;</div>
                         <div class="modal__title">${message}</div>
                     </div>
                 `;
@@ -72,8 +64,9 @@ function form(){
             thanksModal.remove();
             prevModalDialog.classList.add('show');
             prevModalDialog.classList.remove('hide');
-            closeModal();
+            closeModal('.modal');
         }, 4000)
     };
 }
-module.exports = form;
+
+export default form;
